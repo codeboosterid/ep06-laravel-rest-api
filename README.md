@@ -1,59 +1,207 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🚀 EP06 — REST API Laravel + Claude Code
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+> Source code resmi untuk tutorial YouTube **CodeBoosterID EP06**  
+> **"Setup Laravel + Claude Code - REST API dalam 10 Menit!"**
 
-## About Laravel
+📺 **[Tonton Tutorial di YouTube →](https://youtube.com/@codeboosterid)**  
+🌐 **[codebooster.id](https://codebooster.id)**
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 📋 Tentang Project
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+REST API Laravel lengkap yang dibangun dalam 10 menit menggunakan **Vibe Coding** dengan Claude Code. Cocok untuk pemula backend yang ingin belajar cara membangun API yang benar dan efisien.
 
-## Learning Laravel
+**Yang akan kamu pelajari:**
+- ✅ Setup Laravel project dari 0
+- ✅ Database migration dengan best practice
+- ✅ Eloquent Model dengan scope & casts
+- ✅ Form Request untuk validasi
+- ✅ API Resource untuk format response konsisten
+- ✅ Controller CRUD dengan search & pagination
+- ✅ REST API routes
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+---
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## 🛠️ Tech Stack
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+| Tool | Versi |
+|------|-------|
+| PHP | 8.2+ |
+| Laravel | 11.x |
+| MySQL | 8.0+ |
+| Composer | 2.x |
 
-## Agentic Development
+---
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+## ⚡ Quick Start
+
+### 1. Clone repo
 
 ```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+git clone https://github.com/codeboosterid/ep06-laravel-rest-api.git
+cd ep06-laravel-rest-api
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+### 2. Install dependencies
 
-## Contributing
+```bash
+composer install
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### 3. Setup environment
 
-## Code of Conduct
+```bash
+cp .env.example .env
+php artisan key:generate
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Edit `.env`:
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=toko_api
+DB_USERNAME=root
+DB_PASSWORD=
+```
 
-## Security Vulnerabilities
+### 4. Jalankan migration
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```bash
+php artisan migrate
+```
 
-## License
+### 5. Jalankan server
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
-# ep06-laravel-rest-api
+```bash
+php artisan serve
+```
+
+API berjalan di `http://localhost:8000`
+
+---
+
+## 📡 API Endpoints
+
+| Method | Endpoint | Deskripsi |
+|--------|----------|-----------|
+| `GET` | `/api/products` | List semua produk (paginate 10) |
+| `GET` | `/api/products?search=laptop` | Search produk by nama |
+| `POST` | `/api/products` | Buat produk baru |
+| `GET` | `/api/products/{id}` | Detail 1 produk |
+| `PUT` | `/api/products/{id}` | Update produk |
+| `DELETE` | `/api/products/{id}` | Hapus produk |
+
+---
+
+## 🧪 Contoh Request & Response
+
+### Create Product
+```bash
+curl -X POST http://localhost:8000/api/products \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "Laptop Gaming",
+    "description": "Laptop untuk gaming dan coding",
+    "price": 15000000,
+    "stock": 5
+  }'
+```
+
+**Response:**
+```json
+{
+  "data": {
+    "id": 1,
+    "name": "Laptop Gaming",
+    "description": "Laptop untuk gaming dan coding",
+    "price": 15000000.00,
+    "stock": 5,
+    "is_active": true,
+    "created_at": "2026-06-06 10:00:00"
+  },
+  "message": "Produk berhasil dibuat",
+  "status": true
+}
+```
+
+### Get All Products (with pagination)
+```bash
+curl http://localhost:8000/api/products
+```
+
+### Search Products
+```bash
+curl http://localhost:8000/api/products?search=laptop
+```
+
+---
+
+## 📁 Struktur Project
+
+```
+app/
+├── Http/
+│   ├── Controllers/
+│   │   └── ProductController.php
+│   ├── Requests/
+│   │   └── StoreProductRequest.php
+│   └── Resources/
+│       └── ProductResource.php
+├── Models/
+│   └── Product.php
+database/
+└── migrations/
+    └── xxxx_create_products_table.php
+routes/
+└── api.php
+```
+
+---
+
+## 🎯 Validasi Request
+
+| Field | Rule |
+|-------|------|
+| `name` | required, string, max 255 |
+| `description` | nullable, string |
+| `price` | required, numeric, min 0.01 |
+| `stock` | required, integer, min 0 |
+| `is_active` | boolean |
+
+---
+
+## 📺 Tutorial Series CodeBoosterID
+
+| Episode | Topik | Link |
+|---------|-------|------|
+| EP01 | Kenapa Developer 2026 HARUS Pakai Vibe Coding? | Coming soon |
+| **EP06** | **Setup Laravel + Claude Code - REST API dalam 10 Menit** | **Video ini** |
+| EP07 | CRUD API Laravel Otomatis - Tanpa Nulis Code Manual | Coming soon |
+| EP08 | Authentication JWT Laravel - Cara yang Benar | Coming soon |
+
+---
+
+## 🤝 Kontribusi
+
+Issue dan pull request sangat diterima! Kalau ada pertanyaan, komen di video YouTube atau buka issue di repo ini.
+
+---
+
+## 📄 Lisensi
+
+MIT License — bebas digunakan untuk belajar dan project pribadi.
+
+---
+
+<div align="center">
+
+**Dibuat dengan ❤️ oleh [Faizal Harwin](https://codebooster.id)**  
+**Founder CodeBooster | Full Stack Developer | Backend + Vibe Coding**
+
+[![YouTube](https://img.shields.io/badge/YouTube-CodeBoosterID-red?style=flat&logo=youtube)](https://youtube.com/@codeboosterid)
+[![Website](https://img.shields.io/badge/Website-codebooster.id-blue?style=flat)](https://codebooster.id)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-faizalharwin-blue?style=flat&logo=linkedin)](https://linkedin.com/in/faizalharwin)
+
+</div>
