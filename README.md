@@ -27,8 +27,8 @@ REST API Laravel lengkap yang dibangun dalam 10 menit menggunakan **Vibe Coding*
 
 | Tool | Versi |
 |------|-------|
-| PHP | 8.2+ |
-| Laravel | 11.x |
+| PHP | 8.3+ |
+| Laravel | 13.x |
 | MySQL | 8.0+ |
 | Composer | 2.x |
 
